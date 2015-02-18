@@ -8,29 +8,28 @@
 
 /* Begin PBXBuildFile section */
 		2133640618D0BF3600CB22C7 /* Configuration.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2156237E18D0191800DF57B5 /* Configuration.xib */; };
-		2133640718D0BF3600CB22C7 /* braun-dark.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 21375CB418D0B29300EB5E5C /* braun-dark.pdf */; };
-		2133640818D0BF3600CB22C7 /* braun-light.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 21375CB718D0B4BE00EB5E5C /* braun-light.pdf */; };
-		21375CB518D0B29300EB5E5C /* braun-dark.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 21375CB418D0B29300EB5E5C /* braun-dark.pdf */; };
-		21375CB818D0B4BE00EB5E5C /* braun-light.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 21375CB718D0B4BE00EB5E5C /* braun-light.pdf */; };
+		2147FD071A8BB6800048407C /* thumbnail.png in Resources */ = {isa = PBXBuildFile; fileRef = 2147FD041A8BB6800048407C /* thumbnail.png */; };
+		2147FD081A8BB6800048407C /* thumbnail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2147FD051A8BB6800048407C /* thumbnail@2x.png */; };
+		2147FD0A1A8BB93D0048407C /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21592F4618CB7D4A00931D75 /* AppKit.framework */; };
 		2156238A18D0191800DF57B5 /* Configuration.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2156237E18D0191800DF57B5 /* Configuration.xib */; };
-		21592F4218CB7D4A00931D75 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21592F4118CB7D4A00931D75 /* Cocoa.framework */; };
 		21592F4418CB7D4A00931D75 /* ScreenSaver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21592F4318CB7D4A00931D75 /* ScreenSaver.framework */; };
 		21592F5D18CB7F3D00931D75 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21592F4118CB7D4A00931D75 /* Cocoa.framework */; };
 		21623B4019779F16001BA4A9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21623B3719779F16001BA4A9 /* AppDelegate.swift */; };
 		21623B4219779F16001BA4A9 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21623B3C19779F16001BA4A9 /* MainMenu.xib */; };
 		21623B4419779F16001BA4A9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21623B3F19779F16001BA4A9 /* Images.xcassets */; };
+		219E68F819782D5400805FEA /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219E68F719782D5400805FEA /* Defaults.swift */; };
+		219E68F919782E4100805FEA /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219E68F719782D5400805FEA /* Defaults.swift */; };
+		21D56DFE19AF825A00C40125 /* braun.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 21D56DFD19AF825A00C40125 /* braun.pdf */; };
+		21D56DFF19AF825A00C40125 /* braun.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 21D56DFD19AF825A00C40125 /* braun.pdf */; };
 		21EA95991976428A00E4370A /* ClockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21EA95981976428A00E4370A /* ClockView.swift */; };
-		21EA959B197642A500E4370A /* Defines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21EA959A197642A500E4370A /* Defines.swift */; };
 		21EA959C197645D600E4370A /* ClockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21EA95981976428A00E4370A /* ClockView.swift */; };
-		21EA959D197645DF00E4370A /* Defines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21EA959A197642A500E4370A /* Defines.swift */; };
 		21F358441977A2F00080C74A /* ConfigureWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21EA95A0197649BE00E4370A /* ConfigureWindowController.swift */; };
-		21F358731977A4EA0080C74A /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F358721977A4EA0080C74A /* main.swift */; };
 		21F358741977A6960080C74A /* ConfigureWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21EA95A0197649BE00E4370A /* ConfigureWindowController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		21375CB418D0B29300EB5E5C /* braun-dark.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "braun-dark.pdf"; sourceTree = "<group>"; };
-		21375CB718D0B4BE00EB5E5C /* braun-light.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "braun-light.pdf"; sourceTree = "<group>"; };
+		2147FD041A8BB6800048407C /* thumbnail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = thumbnail.png; sourceTree = "<group>"; };
+		2147FD051A8BB6800048407C /* thumbnail@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thumbnail@2x.png"; sourceTree = "<group>"; };
 		2156237D18D0191800DF57B5 /* Clock-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Clock-Info.plist"; sourceTree = "<group>"; };
 		2156237E18D0191800DF57B5 /* Configuration.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Configuration.xib; sourceTree = "<group>"; };
 		21592F3E18CB7D4A00931D75 /* Clock.saver */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Clock.saver; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -46,10 +45,10 @@
 		21623B3D19779F16001BA4A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		21623B3E19779F16001BA4A9 /* ClockTest-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ClockTest-Info.plist"; sourceTree = "<group>"; };
 		21623B3F19779F16001BA4A9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		219E68F719782D5400805FEA /* Defaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
+		21D56DFD19AF825A00C40125 /* braun.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = braun.pdf; sourceTree = "<group>"; };
 		21EA95981976428A00E4370A /* ClockView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClockView.swift; sourceTree = "<group>"; };
-		21EA959A197642A500E4370A /* Defines.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Defines.swift; sourceTree = "<group>"; };
 		21EA95A0197649BE00E4370A /* ConfigureWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigureWindowController.swift; sourceTree = "<group>"; };
-		21F358721977A4EA0080C74A /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,8 +56,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2147FD0A1A8BB93D0048407C /* AppKit.framework in Frameworks */,
 				21592F4418CB7D4A00931D75 /* ScreenSaver.framework in Frameworks */,
-				21592F4218CB7D4A00931D75 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,7 +86,7 @@
 			children = (
 				21EA95981976428A00E4370A /* ClockView.swift */,
 				21EA95A0197649BE00E4370A /* ConfigureWindowController.swift */,
-				21EA959A197642A500E4370A /* Defines.swift */,
+				219E68F719782D5400805FEA /* Defaults.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -95,10 +94,11 @@
 		2156237C18D0191800DF57B5 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2147FD041A8BB6800048407C /* thumbnail.png */,
+				2147FD051A8BB6800048407C /* thumbnail@2x.png */,
+				21D56DFD19AF825A00C40125 /* braun.pdf */,
 				2156237D18D0191800DF57B5 /* Clock-Info.plist */,
 				2156237E18D0191800DF57B5 /* Configuration.xib */,
-				21375CB418D0B29300EB5E5C /* braun-dark.pdf */,
-				21375CB718D0B4BE00EB5E5C /* braun-light.pdf */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -149,7 +149,6 @@
 			children = (
 				21623B3619779F16001BA4A9 /* Classes */,
 				21623B3B19779F16001BA4A9 /* Resources */,
-				21F358711977A4DF0080C74A /* Other Sources */,
 			);
 			path = ClockDemo;
 			sourceTree = "<group>";
@@ -170,14 +169,6 @@
 				21623B3F19779F16001BA4A9 /* Images.xcassets */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		21F358711977A4DF0080C74A /* Other Sources */ = {
-			isa = PBXGroup;
-			children = (
-				21F358721977A4EA0080C74A /* main.swift */,
-			);
-			path = "Other Sources";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -250,9 +241,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				21375CB818D0B4BE00EB5E5C /* braun-light.pdf in Resources */,
 				2156238A18D0191800DF57B5 /* Configuration.xib in Resources */,
-				21375CB518D0B29300EB5E5C /* braun-dark.pdf in Resources */,
+				2147FD081A8BB6800048407C /* thumbnail@2x.png in Resources */,
+				21D56DFE19AF825A00C40125 /* braun.pdf in Resources */,
+				2147FD071A8BB6800048407C /* thumbnail.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -260,10 +252,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2133640718D0BF3600CB22C7 /* braun-dark.pdf in Resources */,
 				2133640618D0BF3600CB22C7 /* Configuration.xib in Resources */,
+				21D56DFF19AF825A00C40125 /* braun.pdf in Resources */,
 				21623B4419779F16001BA4A9 /* Images.xcassets in Resources */,
-				2133640818D0BF3600CB22C7 /* braun-light.pdf in Resources */,
 				21623B4219779F16001BA4A9 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -277,7 +268,7 @@
 			files = (
 				21F358741977A6960080C74A /* ConfigureWindowController.swift in Sources */,
 				21EA95991976428A00E4370A /* ClockView.swift in Sources */,
-				21EA959B197642A500E4370A /* Defines.swift in Sources */,
+				219E68F819782D5400805FEA /* Defaults.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,10 +277,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				21623B4019779F16001BA4A9 /* AppDelegate.swift in Sources */,
-				21F358731977A4EA0080C74A /* main.swift in Sources */,
+				219E68F919782E4100805FEA /* Defaults.swift in Sources */,
 				21EA959C197645D600E4370A /* ClockView.swift in Sources */,
 				21F358441977A2F00080C74A /* ConfigureWindowController.swift in Sources */,
-				21EA959D197645DF00E4370A /* Defines.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -339,9 +329,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -372,8 +363,9 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Release;
 		};

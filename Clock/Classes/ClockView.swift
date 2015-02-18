@@ -6,15 +6,31 @@
 //  Copyright (c) 2014 Sam Soffes. All rights reserved.
 //
 
-import Cocoa
+import AppKit
 import ScreenSaver
 
 class ClockView: ScreenSaverView {
+
+	// MARK: - Types
+
+	enum Style: Int {
+		case Light, Dark
+
+		init(integer: Int) {
+			if integer == 1 {
+				self = .Dark
+				return
+			}
+
+			self = .Light
+		}
+	}
+
 	
 	// MARK: - Properties
 	
-	var faceStyle: ClockStyle = .Light
-	var backgroundStyle: ClockStyle = .Dark
+	var faceStyle: Style = .Light
+	var backgroundStyle: Style = .Dark
 	var drawsTicks = true
 	var drawsNumbers = true
 	var drawsDate = true
@@ -31,14 +47,14 @@ class ClockView: ScreenSaverView {
 	var faceColor: NSColor!
 	let secondsColor = NSColor(calibratedRed: 0.965, green: 0.773, blue: 0.180, alpha: 1)
 	
-	@lazy var configureWindowController: ConfigureWindowController = {
+	lazy var configureWindowController: ConfigureWindowController = {
 		let controller = ConfigureWindowController()
 		controller.loadWindow()
 		return controller
 	}()
 	
 	var defaults: ScreenSaverDefaults {
-		return ScreenSaverDefaults.defaultsForModuleWithName(BundleIdentifier) as ScreenSaverDefaults
+		return ScreenSaverDefaults.defaultsForModuleWithName(BundleIdentifier) as! ScreenSaverDefaults
 	}
 	
 	override var frame: CGRect {
@@ -51,29 +67,20 @@ class ClockView: ScreenSaverView {
 	
 	// MARK: - Initializers
 	
-	convenience init() {
+	convenience override init() {
 		self.init(frame: CGRectZero, isPreview: false)
 	}
 	
-	init(frame: NSRect, isPreview: Bool) {
+	override init(frame: NSRect, isPreview: Bool) {
 		super.init(frame: frame, isPreview: isPreview)
-		
-		setAnimationTimeInterval(1.0 / 4.0)
-		wantsLayer = true
-		
-		defaults.registerDefaults([
-			ClockStyleDefaultsKey: ClockStyle.Light.toRaw(),
-			BackgroundStyleDefaultsKey: ClockStyle.Dark.toRaw(),
-			TickMarksDefaultsKey: true,
-			NumbersDefaultsKey: true,
-			DateDefaultsKey: true,
-			LogoDefaultsKey: false
-		])
-		
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "configurationDidChange:", name: ConfigurationDidChangeNotificationName, object: nil)
-		configurationDidChange(nil)
+		initialize()
 	}
-	
+
+	required init?(coder: NSCoder) {
+	    super.init(coder: coder)
+		initialize()
+	}
+
 	deinit {
 		NSNotificationCenter.defaultCenter().removeObserver(self)
 	}
@@ -103,9 +110,9 @@ class ClockView: ScreenSaverView {
 		
 		// Get time components
 		let comps = NSCalendar.currentCalendar().components(NSCalendarUnit.DayCalendarUnit | NSCalendarUnit.HourCalendarUnit | NSCalendarUnit.MinuteCalendarUnit | NSCalendarUnit.SecondCalendarUnit, fromDate: NSDate())
-		let seconds = CGFloat(comps.second) / 60.0
-		let minutes = (CGFloat(comps.minute) / 60.0) + (seconds / 60.0)
-		let hours = (CGFloat(comps.hour) / 12.0) + ((CGFloat(comps.minute) / 60.0) * (60.0 / 12.0))
+		let seconds = Double(comps.second) / 60.0
+		let minutes = (Double(comps.minute) / 60.0) + (seconds / 60.0)
+		let hours = (Double(comps.hour) / 12.0) + ((minutes / 60.0) * (60.0 / 12.0))
 		
 		if drawsDate {
 			drawDate(comps.day)
@@ -114,16 +121,16 @@ class ClockView: ScreenSaverView {
 		// Hours
 		handColor.colorWithAlphaComponent(0.7).setStroke()
 		let hoursAngle = -(M_PI * 2.0 * hours) + M_PI_2
-		drawHand(length: 0.263955343, thickness: 0.023125997, angle: hoursAngle)
+		drawHand(length: 0.263955343, thickness: 0.023125997, angle: CGFloat(hoursAngle))
 		
 		// Minutes
 		handColor.setStroke()
 		let minutesAngle = -(M_PI * 2.0 * minutes) + M_PI_2;
-		drawHand(length: 0.391547049, thickness: 0.014354067, angle: minutesAngle)
+		drawHand(length: 0.391547049, thickness: 0.014354067, angle: CGFloat(minutesAngle))
 	
 		// Seconds
 		secondsColor.set()
-		let secondsAngle = -(M_PI * 2.0 * seconds) + M_PI_2;
+		let secondsAngle = CGFloat(-(M_PI * 2.0 * seconds) + M_PI_2)
 		drawHand(length: 0.391547049, thickness: 0.009569378, angle: secondsAngle)
 		
 		// Counterweight & screw
@@ -147,8 +154,25 @@ class ClockView: ScreenSaverView {
 	
 	
 	// MARK: - Private
-		
-	func clockFrameForBounds(bounds: CGRect) -> CGRect {
+
+	private func initialize() {
+		setAnimationTimeInterval(1.0 / 4.0)
+		wantsLayer = true
+
+		defaults.registerDefaults([
+			ClockStyleDefaultsKey: Style.Light.rawValue,
+			BackgroundStyleDefaultsKey: Style.Dark.rawValue,
+			TickMarksDefaultsKey: true,
+			NumbersDefaultsKey: true,
+			DateDefaultsKey: true,
+			LogoDefaultsKey: false
+			])
+
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: "configurationDidChange:", name: ConfigurationDidChangeNotificationName, object: nil)
+		configurationDidChange(nil)
+	}
+
+	private func clockFrameForBounds(bounds: CGRect) -> CGRect {
 		let size = bounds.size
 		let clockSize = min(size.width, size.height) * 0.55
 		
@@ -158,7 +182,7 @@ class ClockView: ScreenSaverView {
 		return rect
 	}
 	
-	func drawFaceBackground() {
+	private func drawFaceBackground() {
 		faceColor.setFill()
 		
 		let clockPath = NSBezierPath(ovalInRect: clockFrame)
@@ -166,11 +190,11 @@ class ClockView: ScreenSaverView {
 		clockPath.fill()
 	}
 	
-	func drawTicks() {
+	private func drawTicks() {
 		let center = CGPoint(x: clockFrame.midX, y: clockFrame.midY)
 		
 		// Ticks divider
-		let dividerPosition = 0.074960128
+		let dividerPosition: CGFloat = 0.074960128
 		backgroundColor.colorWithAlphaComponent(0.05).setStroke()
 		let ticksFrame = CGRectInset(clockFrame, clockFrame.size.width * dividerPosition, clockFrame.size.width * dividerPosition)
 		let ticksPath = NSBezierPath(ovalInRect: ticksFrame)
@@ -182,8 +206,8 @@ class ClockView: ScreenSaverView {
 		let tickRadius = clockWidth * 0.437799043
 		for i in 0..<60 {
 			let isLarge = (i % 5) == 0
-			let progress = CGFloat(i) / 60.0
-			let angle = -(progress * M_PI * 2) + M_PI_2
+			let progress = Double(i) / 60.0
+			let angle = CGFloat(-(progress * M_PI * 2) + M_PI_2)
 			
 			let tickColor = isLarge ? handColor : handColor.colorWithAlphaComponent(0.5)
 			tickColor.setStroke()
@@ -204,20 +228,20 @@ class ClockView: ScreenSaverView {
 		}
 	}
 	
-	func drawNumbers() {
+	private func drawNumbers() {
 		let center = CGPoint(x: clockFrame.midX, y: clockFrame.midY)
 		
 		let textRadius = clockWidth * 0.402711324
-		let font = NSFont(name: "HelveticaNeue-Light", size: clockWidth * 0.071770334)
+		let font = NSFont(name: "HelveticaNeue-Light", size: clockWidth * 0.071770334)!
 		for i in 0..<12 {
 			let string = NSAttributedString(string: "\(12 - i)", attributes: [
 				NSForegroundColorAttributeName: handColor,
-				NSFontAttributeName: font,
-				NSKernAttributeName: clockWidth * -0.01275917
+				NSKernAttributeName: -2,
+				NSFontAttributeName: font
 			])
 			
 			let stringSize = string.size
-			let angle = (CGFloat(i) / 12.0 * M_PI * 2) + M_PI_2
+			let angle = CGFloat((Double(i) / 12.0 * M_PI * 2.0) + M_PI_2)
 			let rect = CGRect(
 				x: (center.x + cos(angle) * (textRadius - (stringSize.width / 2.0))) - (stringSize.width / 2.0),
 				y: center.y + sin(angle) * (textRadius - (stringSize.height / 2.0)) - (stringSize.height / 2.0),
@@ -229,7 +253,7 @@ class ClockView: ScreenSaverView {
 		}
 	}
 	
-	func drawDate(day: Int) {
+	private func drawDate(day: Int) {
 		let dateArrowColor = NSColor(calibratedRed: 0.847, green: 0.227, blue: 0.286, alpha: 1)
 		let dateBackgroundColor = NSColor(calibratedRed: 0.894, green: 0.933, blue: 0.965, alpha: 1)
 		let dateWidth = clockWidth * 0.057416268
@@ -248,16 +272,13 @@ class ClockView: ScreenSaverView {
 		let paragraph = NSMutableParagraphStyle()
 		paragraph.alignment = NSTextAlignment.CenterTextAlignment
 		
-		let kern = clockWidth * -0.01275917
-		
 		let string = NSAttributedString(string: "\(day)", attributes: [
-			NSFontAttributeName: NSFont(name: "HelveticaNeue-Light", size: clockWidth * 0.044657098),
-			NSKernAttributeName: kern,
+			NSFontAttributeName: NSFont(name: "HelveticaNeue-Light", size: clockWidth * 0.044657098)!,
+			NSKernAttributeName: -1,
 			NSParagraphStyleAttributeName: paragraph
 		])
 		
 		var stringFrame = dateFrame
-		stringFrame.origin.x += kern / 4.0
 		stringFrame.origin.y -= dateFrame.size.height * 0.12
 		string.drawInRect(stringFrame)
 		
@@ -276,7 +297,7 @@ class ClockView: ScreenSaverView {
 		path.fill()
 	}
 	
-	func drawLogo() {
+	private func drawLogo() {
 		if let image = logoImage {
 			let originalImageSize = image.size
 			let imageWidth = clockWidth * 0.156299841
@@ -284,17 +305,31 @@ class ClockView: ScreenSaverView {
 				width: imageWidth,
 				height: originalImageSize.height * imageWidth / originalImageSize.width
 			)
-
-			image.drawInRect(CGRect(
+			let logoRect = CGRect(
 				x: (bounds.size.width - imageSize.width) / 2.0,
 				y: clockFrame.origin.y + (clockWidth * 0.622009569),
 				width: imageSize.width,
 				height: imageSize.height
-			))
+			)
+
+			if faceStyle == .Dark {
+				NSColor.whiteColor().setFill()
+			} else {
+				NSColor.blackColor().setFill()
+			}
+
+			let graphicsContext = NSGraphicsContext.currentContext()!
+			let cgImage = image.CGImageForProposedRect(nil, context: graphicsContext, hints: nil)?.takeUnretainedValue()
+			let context: CGContext = unsafeBitCast(graphicsContext.graphicsPort, CGContext.self)
+
+			CGContextSaveGState(context)
+			CGContextClipToMask(context, logoRect, cgImage)
+			CGContextFillRect(context, bounds)
+			CGContextRestoreGState(context)
 		}
 	}
 
-	func drawHand(#length: CGFloat, thickness: CGFloat, angle: CGFloat, lineCapStyle: NSLineCapStyle = NSLineCapStyle.SquareLineCapStyle) {
+	private func drawHand(#length: CGFloat, thickness: CGFloat, angle: CGFloat, lineCapStyle: NSLineCapStyle = NSLineCapStyle.SquareLineCapStyle) {
 		let center = CGPoint(x: clockFrame.midX, y: clockFrame.midY)
 		let end = CGPoint(
 			x: center.x + cos(angle) * clockWidth * length,
@@ -309,7 +344,7 @@ class ClockView: ScreenSaverView {
 		path.stroke()
 	}
 	
-	func drawHandAccessories(secondsAngle: CGFloat) {
+	private func drawHandAccessories(secondsAngle: CGFloat) {
 		secondsColor.set()
 		
 		// Counterweight
@@ -328,40 +363,42 @@ class ClockView: ScreenSaverView {
 	}
 	
 	func configurationDidChange(notification: NSNotification?) {
-		faceStyle = ClockStyle(integer: defaults.integerForKey(ClockStyleDefaultsKey))
-		backgroundStyle = ClockStyle(integer: defaults.integerForKey(BackgroundStyleDefaultsKey))
+		faceStyle = ClockView.Style(integer: defaults.integerForKey(ClockStyleDefaultsKey))
+		backgroundStyle = ClockView.Style(integer: defaults.integerForKey(BackgroundStyleDefaultsKey))
 		drawsTicks = defaults.boolForKey(TickMarksDefaultsKey)
 		drawsNumbers = defaults.boolForKey(NumbersDefaultsKey)
 		drawsDate = defaults.boolForKey(DateDefaultsKey)
 		drawsLogo = defaults.boolForKey(LogoDefaultsKey)
 		
 		if drawsLogo {
-			let imageName = faceStyle == ClockStyle.Light ? "braun-dark" : "braun-light"
-			let imageURL = NSBundle(identifier: BundleIdentifier).URLForResource(imageName, withExtension: "pdf")
-			logoImage = NSImage(contentsOfURL: imageURL)
-			
-			// For demo app
-			if !logoImage {
-				logoImage = NSImage(named: imageName)
+			if let imageURL = NSBundle(identifier: BundleIdentifier)?.URLForResource("braun", withExtension: "pdf") {
+				logoImage = NSImage(contentsOfURL: imageURL)
 			}
+
+			// For demo app
+			if logoImage == nil {
+				logoImage = NSImage(named: "braun")
+			}
+		} else {
+			logoImage = nil
 		}
 		
 		handColor = NSColor(calibratedRed: 0.039, green: 0.039, blue: 0.043, alpha: 1)
 		faceColor = NSColor(calibratedWhite: 0.996, alpha: 1)
 		
-		if faceStyle == ClockStyle.Dark {
+		if faceStyle == Style.Dark {
 			handColor = NSColor(calibratedRed: 0.988, green: 0.992, blue: 0.988, alpha: 1)
 			faceColor = NSColor(calibratedRed: 0.129, green: 0.125, blue: 0.141, alpha: 1)
 		}
 		
 		backgroundColor = NSColor.whiteColor()
 		
-		if backgroundStyle == ClockStyle.Light {
-			if faceStyle == ClockStyle.Dark {
+		if backgroundStyle == Style.Light {
+			if faceStyle == Style.Dark {
 				backgroundColor = NSColor(calibratedWhite: 0.996, alpha: 1)
 			}
 		} else {
-			if faceStyle == ClockStyle.Light {
+			if faceStyle == Style.Light {
 				backgroundColor = NSColor.blackColor()
 			} else {
 				backgroundColor = NSColor(calibratedRed: 0.129, green: 0.125, blue: 0.141, alpha: 1)
